@@ -12,7 +12,7 @@ import retrofit2.http.Query
 
 internal interface ComicService {
     @GET("/v1/public/comics/28764")
-    fun getComicInformation(@Query("apikey") key: String = BuildConfig.PUBLIC_KEY,
+    suspend fun getComicInformation(@Query("apikey") key: String = BuildConfig.PUBLIC_KEY,
                                     @Query("ts") timestamp: String = "1633993835762",
                                     @Query("hash") hash: String): ComicNetworkWrapper
 }
