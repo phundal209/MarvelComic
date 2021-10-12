@@ -7,8 +7,8 @@ import androidx.room.Query
 @Dao
 internal interface ComicDao {
     @Query("SELECT * FROM comic WHERE id IS :comicId")
-    suspend fun getSavedComic(comicId: Int): ComicEntity?
+    fun getSavedComic(comicId: Int): ComicEntity?
 
     @Insert
-    suspend fun insertComic(vararg comic: ComicEntity)
+    fun insertComic(vararg comic: ComicEntity)
 }
