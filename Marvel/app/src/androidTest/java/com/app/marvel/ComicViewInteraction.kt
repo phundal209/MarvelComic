@@ -9,10 +9,6 @@ fun onComicFragmentView(actions: ComicFragmentViewInteraction.() -> Unit) {
 }
 
 object ComicFragmentViewInteraction {
-    fun assertErrorToastShown(error: String) {
-        onView(withId(R.id.title)).check(matches(withText(error)));
-    }
-
     fun assertImageShown() {
         onView(withId(R.id.expandedImage)).check(matches(isDisplayed()))
     }
