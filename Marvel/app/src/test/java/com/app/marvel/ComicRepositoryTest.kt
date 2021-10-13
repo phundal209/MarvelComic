@@ -34,11 +34,11 @@ class ComicRepositoryTest {
         coroutinesTestRule.testDispatcher.runBlockingTest {
             Mockito.`when`(cache.getSavedComic(28764)).thenReturn(null)
             Mockito.`when`(hashGenerator.generate()).thenReturn("mockHash")
-            Mockito.`when`(comicService.getComicInformation(hash = "mockHash")).thenReturn(
+            Mockito.`when`(comicService.getTestComicInformation(hash = "mockHash")).thenReturn(
                 getMockComicNetworkModel(200)
             )
 
-            val result = comicRepository.getComicData()
+            val result = comicRepository.getComicDataForTest()
 
             assert(result is ComicResult.Success)
         }
@@ -49,11 +49,11 @@ class ComicRepositoryTest {
         coroutinesTestRule.testDispatcher.runBlockingTest {
             Mockito.`when`(cache.getSavedComic(28764)).thenReturn(null)
             Mockito.`when`(hashGenerator.generate()).thenReturn("mockHash")
-            Mockito.`when`(comicService.getComicInformation(hash = "mockHash")).thenReturn(
+            Mockito.`when`(comicService.getTestComicInformation(hash = "mockHash")).thenReturn(
                 getMockComicNetworkModel(200)
             )
 
-            comicRepository.getComicData()
+            comicRepository.getComicDataForTest()
 
             Mockito.verify(cache).insertComic(ComicEntity(id=1, issueNumber=1.0, title="Title", description="Description", thumbnail="thumbnail.jpg"))
         }
@@ -64,11 +64,11 @@ class ComicRepositoryTest {
         coroutinesTestRule.testDispatcher.runBlockingTest {
             Mockito.`when`(cache.getSavedComic(28764)).thenReturn(null)
             Mockito.`when`(hashGenerator.generate()).thenReturn("mockHash")
-            Mockito.`when`(comicService.getComicInformation(hash = "mockHash")).thenReturn(
+            Mockito.`when`(comicService.getTestComicInformation(hash = "mockHash")).thenReturn(
                 getMockComicNetworkModel(401)
             )
 
-            val result = comicRepository.getComicData()
+            val result = comicRepository.getComicDataForTest()
 
             assert(result is ComicResult.Error)
         }
@@ -79,11 +79,11 @@ class ComicRepositoryTest {
         coroutinesTestRule.testDispatcher.runBlockingTest {
             Mockito.`when`(cache.getSavedComic(28764)).thenReturn(null)
             Mockito.`when`(hashGenerator.generate()).thenReturn("mockHash")
-            Mockito.`when`(comicService.getComicInformation(hash = "mockHash")).thenReturn(
+            Mockito.`when`(comicService.getTestComicInformation(hash = "mockHash")).thenReturn(
                 getMockComicNetworkModel(401)
             )
 
-            comicRepository.getComicData()
+            comicRepository.getComicDataForTest()
 
             Mockito.verify(cache).getSavedComic(28764)
             Mockito.verifyNoMoreInteractions(cache)
@@ -95,7 +95,7 @@ class ComicRepositoryTest {
         coroutinesTestRule.testDispatcher.runBlockingTest {
             Mockito.`when`(cache.getSavedComic(28764)).thenReturn(getComicEntity())
 
-            val result = comicRepository.getComicData()
+            val result = comicRepository.getComicDataForTest()
 
             assert(result is ComicResult.Success)
 

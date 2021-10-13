@@ -15,6 +15,11 @@ internal interface ComicService {
     suspend fun getComicInformation(@Query("apikey") key: String = BuildConfig.PUBLIC_KEY,
                                     @Query("ts") timestamp: String = "1633993835762",
                                     @Query("hash") hash: String): ComicNetworkWrapper
+
+    @GET("/v1/public/comics/28764")
+    fun getTestComicInformation(@Query("apikey") key: String = BuildConfig.PUBLIC_KEY,
+                            @Query("ts") timestamp: String = "1633993835762",
+                            @Query("hash") hash: String): ComicNetworkWrapper
 }
 //1633993835762
 

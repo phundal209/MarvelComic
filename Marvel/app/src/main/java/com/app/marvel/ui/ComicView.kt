@@ -26,7 +26,8 @@ internal class ComicViewImpl @Inject constructor() : ComicView {
             is ComicViewState.ErrorLoading -> {
                 binding.loader.visibility = View.GONE
                 Log.e("ComicView", "error while loading", state.error)
-                Toast.makeText(binding.root.context, "Error getting comic data", Toast.LENGTH_LONG).show()
+                binding.title.text = state.error.message ?: "Error getting comic data"
+                binding.description.text = ""
             }
             is ComicViewState.LoadedData -> {
                 binding.loader.visibility = View.GONE

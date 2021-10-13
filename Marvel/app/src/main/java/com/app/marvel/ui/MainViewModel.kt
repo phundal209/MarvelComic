@@ -14,15 +14,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 internal class MainViewModel @Inject constructor(
-    private val comicRepository: ComicRepository,
-    private val dispatcher: CoroutineDispatcher
+    private val comicRepository: ComicRepository
 ) : ViewModel() {
     private val _comicData: MutableStateFlow<ComicViewState> = MutableStateFlow(ComicViewState.Initial)
     val comicData: Flow<ComicViewState>
         get() = _comicData
 
     fun getComicData() {
-        viewModelScope.launch(dispatcher) {
+        viewModelScope.launch {
             when(val comicData = comicRepository.getComicData()) {
                 is ComicResult.Error -> {
                     _comicData.emit(ComicViewState.ErrorLoading(comicData.error))

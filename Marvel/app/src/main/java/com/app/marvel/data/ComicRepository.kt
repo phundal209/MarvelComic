@@ -10,10 +10,13 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import org.jetbrains.annotations.TestOnly
 import javax.inject.Inject
 
 internal interface ComicRepository {
     suspend fun getComicData(): ComicResult
+    @TestOnly
+    fun getComicDataForTest(): ComicResult
 }
 
 internal class ComicRepositoryImpl @Inject constructor(
@@ -29,7 +32,7 @@ internal class ComicRepositoryImpl @Inject constructor(
                 return@withContext ComicResult.Success(cachedComic)
             }
             //cad7327ff1f17db9cc5e638c126667a5
-            val result = comicService.getComicInformation(hash = hashGenerator.generate())
+            val result = comicService.getComicInformation(hash = "cad7327ff1f17db9cc5e638c126667a5")
             if (result.code == 200) {
                 val networkModel = result.data.results[0]
                 val comicModel = networkModel.toComic()
@@ -44,6 +47,29 @@ internal class ComicRepositoryImpl @Inject constructor(
             } else {
                 return@withContext ComicResult.Error(IllegalAccessException("Unable to retrieve comic information"))
             }
+        }
+    }
+
+    override fun getComicDataForTest(): ComicResult {
+        val cachedComic = cache.getSavedComic(28764)
+        if (cachedComic != null) {
+            return ComicResult.Success(cachedComic)
+        }
+        //cad7327ff1f17db9cc5e638c126667a5
+        val result = comicService.getTestComicInformation(hash = hashGenerator.generate())
+        return if (result.code == 200) {
+            val networkModel = result.data.results[0]
+            val comicModel = networkModel.toComic()
+            cache.insertComic(ComicEntity(
+                id = comicModel.id,
+                issueNumber = comicModel.issueNumber,
+                title = comicModel.title,
+                description = comicModel.description,
+                thumbnail = comicModel.thumbnail
+            ))
+            ComicResult.Success(comicModel)
+        } else {
+            ComicResult.Error(IllegalAccessException("Unable to retrieve comic information"))
         }
     }
 }
