@@ -103,29 +103,4 @@ dependencies {
 
     // Espresso dependencies
     androidTestImplementation('androidx.test.espresso:espresso-core:3.3.0')
-//    androidTestImplementation('androidx.test.espresso:espresso-contrib:3.4.0')
-//    androidTestImplementation('androidx.test.espresso:espresso-intents:3.4.0')
-//    androidTestImplementation('androidx.test.espresso:espresso-accessibility:3.4.0')
-//    androidTestImplementation('androidx.test.espresso:espresso-web:3.4.0')
-//    androidTestImplementation('androidx.test.espresso.idling:idling-concurrent:3.4.0')
-
-    // The following Espresso dependency can be either "implementation"
-    // or "androidTestImplementation", depending on whether you want the
-    // dependency to appear on your APK's compile classpath or the test APK
-    // classpath.
-//    androidTestImplementation('androidx.test.espresso:espresso-idling-resource:3.4.0')
-//
-    // For Robolectric tests.
-//    testImplementation("com.google.dagger:hilt-android-testing:2.38.1")
-//    // ...with Kotlin.
-//    kaptTest("com.google.dagger:hilt-android-compiler:2.38.1")
-//    testImplementation "org.robolectric:robolectric:2.38.1" // 2
-
-
-    // For instrumented tests.
-    androidTestImplementation("com.google.dagger:hilt-android-testing:2.38.1")
-    // ...with Kotlin.
-    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.38.1")
-    // ...with Java.
-    androidTestAnnotationProcessor("com.google.dagger:hilt-android-compiler:2.38.1")
 }
